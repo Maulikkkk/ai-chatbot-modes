@@ -1,11 +1,14 @@
 import streamlit as st
-from dotenv import load_dotenv
 from langchain_mistralai.chat_models import ChatMistralAI
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
-load_dotenv()
+# ✅ Get API key from Streamlit secrets
+api_key = st.secrets["MISTRAL_API_KEY"]
 
-model = ChatMistralAI(model="mistral-small-latest")
+model = ChatMistralAI(
+    model="mistral-small-latest",
+    api_key=api_key
+)
 
 st.title("🤖 AI Chatbot with Modes")
 
@@ -31,12 +34,12 @@ if "messages" not in st.session_state:
 if "current_mode" not in st.session_state:
     st.session_state.current_mode = mode
 
-# 🔴 Reset automatically if mode changes
+# 🔴 Reset if mode changes
 if st.session_state.current_mode != mode:
     st.session_state.messages = [SystemMessage(content=mode)]
     st.session_state.current_mode = mode
 
-# 🔴 Manual reset button
+# 🔴 Reset button
 if st.button("🔄 Reset Chat"):
     st.session_state.messages = [SystemMessage(content=mode)]
     st.rerun()
