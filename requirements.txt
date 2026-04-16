@@ -25,3 +25,7 @@ torchvision==0.25.0
 toutatis==1.31
 typing_extensions==4.15.0
 tzdata==2025.3
+langchain
+langchain-mistralai
+streamlit
+python-dotenv
